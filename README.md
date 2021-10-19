@@ -1,6 +1,6 @@
-# pogaca-nerede-kart-oyunu
+# kedi-nerede-kart-oyunu
 
-> A Vue.js project
+> A Vue.js project from [udemy course](https://www.udemy.com/course/sifirdan-ileri-seviye-vuejs-2-vuex-vue-router-egitim-seti/)
 
 ## Build Setup
 
