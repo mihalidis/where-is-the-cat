@@ -1,4 +1,4 @@
-# kedi-nerede-kart-oyunu
+# Where is the cat card game
 
 > A Vue.js project from [udemy course](https://www.udemy.com/course/sifirdan-ileri-seviye-vuejs-2-vuex-vue-router-egitim-seti/)
 
