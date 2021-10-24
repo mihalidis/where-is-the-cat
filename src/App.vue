@@ -28,7 +28,7 @@ export default {
 body {
   height: 100vh;
   background: rgb(2,0,36);
-  background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(99,180,184,1) 0%, rgba(169,228,215,0.5326505602240896) 100%);
+  background: linear-gradient(185deg, rgba(2,0,36,1) 0%, rgba(255,255,255,1) 0%, rgba(169,228,215,0.5326505602240896) 100%);
 }
 body, html {
   overflow: hidden;

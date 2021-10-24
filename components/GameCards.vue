@@ -3,22 +3,31 @@
   <h1>Where is the cat?</h1>
   <p>After choosing one of the open cards, click the closed card.</p>
   <div class="cards-wrapper">
-    <div class="card" v-for="(image, index) in imgResource" :key="index">
-      <card :img-source="image.source" :img-alt-text="image.name" />
+    <div
+        v-for="(image, index) in imgResource"
+        :key="index"
+        class="card"
+        :class="{'selected-card' : image.name === cardSelect}"
+    >
+      <card :img-source="image.source" :img-alt-text="image.name" @selected="selectedCard(image)"/>
     </div>
   </div>
+  <default-card class="centered"/>
 </div>
 </template>
 
 <script>
 import card from "./Card";
+import defaultCard from "./DefaultCard";
 export default {
   name: "GameCards",
   components: {
     card,
+    defaultCard
   },
   data() {
     return {
+      cardSelect: '',
       imgResource: [
         {
           id:'1',
@@ -47,6 +56,11 @@ export default {
         },
       ]
     }
+  },
+  methods: {
+    selectedCard(card) {
+      this.cardSelect = card.name;
+    }
   }
 }
 </script>
@@ -54,7 +68,7 @@ export default {
 <style scoped>
 .game-cards {
   margin: 120px auto 64px;
-  max-width: 90%;
+  max-width: 1163px;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
 }
@@ -68,5 +82,16 @@ export default {
 .cards-wrapper {
   display: flex;
   justify-content: space-between;
+  margin-top: 32px;
+}
+
+.card {
+  margin: 0 12px;
+}
+.card.selected-card {
+  box-shadow: 0px 0px 13px 0px #0CECDD;
+}
+.centered {
+  margin: 0 auto;
 }
 </style>
