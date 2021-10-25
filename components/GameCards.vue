@@ -1,18 +1,19 @@
 <template>
 <div class="game-cards">
+  <p>{{ randomCard }}</p>
   <h1>Where is the cat?</h1>
   <p>After choosing one of the open cards, click the closed card.</p>
   <div class="cards-wrapper">
     <div
-        v-for="(image, index) in imgResource"
+        v-for="(card, index) in imgResource"
         :key="index"
         class="card"
-        :class="{'selected-card' : image.name === cardSelect}"
+        :class="card.name === selected.name ? 'selected-card' : ''"
     >
-      <card :img-source="image.source" :img-alt-text="image.name" @selected="selectedCard(image)"/>
+      <card :img-source="card.source" :img-alt-text="card.name" @selected="selectedCard(card)"/>
     </div>
   </div>
-  <default-card class="centered"/>
+  <default-card class="centered" :answer-card="randomCard" @answer="getAnswer"/>
 </div>
 </template>
 
@@ -27,7 +28,7 @@ export default {
   },
   data() {
     return {
-      cardSelect: '',
+      selected: {},
       imgResource: [
         {
           id:'1',
@@ -57,11 +58,24 @@ export default {
       ]
     }
   },
+  computed: {
+    randomCard: function () {
+      let index = Math.floor(Math.random() * (5 - 0) + 0);
+      return this.imgResource[index];
+    }
+  },
   methods: {
     selectedCard(card) {
-      this.cardSelect = card.name;
+      this.selected = card;
+    },
+    getAnswer() {
+      if(this.randomCard.name === this.selected.name) {
+        this.$parent.activeComponent = "celebrate";
+      } else {
+        this.$parent.activeComponent = "failure";
+      }
     }
-  }
+  },
 }
 </script>
 
@@ -89,7 +103,7 @@ export default {
   margin: 0 12px;
 }
 .card.selected-card {
-  box-shadow: 0px 0px 13px 0px #0CECDD;
+  box-shadow: 0px 0px 35px 0px #0CECDD;
 }
 .centered {
   margin: 0 auto;
