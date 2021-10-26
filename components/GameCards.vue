@@ -1,17 +1,19 @@
 <template>
 <div class="game-cards">
-  <p>{{ randomCard }}</p>
   <h1>Where is the cat?</h1>
   <p>After choosing one of the open cards, click the closed card.</p>
-  <div class="cards-wrapper">
-    <div
-        v-for="(card, index) in imgResource"
-        :key="index"
-        class="card"
-        :class="card.name === selected.name ? 'selected-card' : ''"
-    >
-      <card :img-source="card.source" :img-alt-text="card.name" @selected="selectedCard(card)"/>
-    </div>
+  <div class="">
+    <transition-group name="rotate-all" appear class="cards-wrapper">
+      <div
+          v-for="(card, index) in imgResource"
+          :key="card.name"
+          class="card"
+          :class="card.name === selected.name ? 'selected-card' : ''"
+      >
+        <card :img-source="card.source" :img-alt-text="card.name" @selected="selectedCard(card)"/>
+      </div>
+    </transition-group>
+
   </div>
   <default-card class="centered" :answer-card="randomCard" @answer="getAnswer"/>
 </div>
@@ -69,11 +71,13 @@ export default {
       this.selected = card;
     },
     getAnswer() {
-      if(this.randomCard.name === this.selected.name) {
-        this.$parent.activeComponent = "celebrate";
-      } else {
-        this.$parent.activeComponent = "failure";
-      }
+      setTimeout(()=>{
+        if(this.randomCard.name === this.selected.name) {
+          this.$emit("activeComponent", "celebrate");
+        } else {
+          this.$emit("activeComponent", "failure");
+        }
+      },1000);
     }
   },
 }
@@ -107,5 +111,19 @@ export default {
 }
 .centered {
   margin: 0 auto;
+}
+
+.rotate-all-enter-active {
+  animation: rotate-all ease-in-out 2s forwards;
+}
+
+@keyframes rotate-all {
+  from {
+  transform: rotateY(0);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
 }
 </style>

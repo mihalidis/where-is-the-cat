@@ -1,6 +1,9 @@
 <template>
 <!--  Dynamic Components  -->
-  <component :is="activeComponent"></component>
+  <transition-group name="slideContainer" mode="out-in">
+    <component @activeComponent="activeComponent = $event" key="mainComponent" :is="activeComponent"></component>
+    <canvas key="canvas" id="canvas" v-show="activeComponent === 'celebrate'"></canvas>
+  </transition-group>
 </template>
 <script>
 import gameCards from "../components/GameCards";
@@ -32,5 +35,35 @@ body {
 }
 body, html {
   overflow: hidden;
+}
+
+.slideContainer-enter{}
+.slideContainer-enter-active{
+  animation: slide-in .3s ease-out forwards;
+}
+.slideContainer-leave{}
+.slideContainer-leave-active{
+  animation: slide-out .3s ease-out forwards;
+}
+
+@keyframes slide-in {
+  from{
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  to{
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+@keyframes slide-out {
+  from{
+    transform: translateX(0px);
+    opacity: 1;
+  }
+  to{
+    transform: translateX(1000px);
+    opacity: 0;
+  }
 }
 </style>
