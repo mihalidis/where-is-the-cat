@@ -2,8 +2,6 @@
 
 > A Vue.js project from [udemy course](https://www.udemy.com/course/sifirdan-ileri-seviye-vuejs-2-vuex-vue-router-egitim-seti/)
 
-https://mihalidis.github.io/where-is-the-cat/
-
 ## Build Setup
 
 ``` bash
